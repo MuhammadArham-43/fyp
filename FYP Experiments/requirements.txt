@@ -1,0 +1,13 @@
+torch
+torchvision
+Pillow
+diffusers
+fastapi
+uvicorn
+opencv-python
+transformers
+gradio
+sentence-transformers
+open-clip-torch
+python-multipart
+accelerate
