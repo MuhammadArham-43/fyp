@@ -1,12 +1,15 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
 
 class InferenceLLMPrompter:
-    def __init__(self):    
+    def __init__(self, lm_model_path: str = "microsoft/phi-2", lora_weights_path: str = None):    
         # torch.set_default_device("cuda")
         self.device = torch.device("cuda")
-        self.model = AutoModelForCausalLM.from_pretrained("results01/checkpoint-500", torch_dtype="auto", trust_remote_code=True).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2", trust_remote_code=True)
+        self.model = AutoModelForCausalLM.from_pretrained(lm_model_path, torch_dtype="auto", trust_remote_code=True).to(self.device)
+        if lora_weights_path:
+            PeftModel.from_pretrained(self.model, lora_weights_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(lm_model_path, trust_remote_code=True)
 
     def optimize_prompt(self, prompt:str):        
         input = "Prompt: " + prompt

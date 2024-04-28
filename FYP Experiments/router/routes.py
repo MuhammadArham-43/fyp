@@ -16,7 +16,7 @@ import base64
 
 #Router for accessing promptist
 class PromptistRouter(APIRouter):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__();
         self.router:APIRouter = APIRouter()
         self.router.add_api_route("/optimize-prompt-stable-diffusion/", self.optimize_prompt, methods = ["POST"])  
@@ -32,11 +32,11 @@ class PromptistRouter(APIRouter):
 
 #Router for accessing Stable Diffusion
 class StableDiffusionRouter(APIRouter):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__();
         self.router:APIRouter = APIRouter()
         self.router.add_api_route("/generate-image/", self.generateImage, methods = ["POST"])  
-        self.stableDiffusion = StableDiffusion()
+        self.stableDiffusion = StableDiffusion(config)
     
     async def generateImage(self, inputData = Body()):
         # Here you would perform your optimization logic
@@ -57,11 +57,11 @@ class StableDiffusionRouter(APIRouter):
 
 #Router for Prompt Discovery
 class PromptDiscoveryRouter(APIRouter):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__();
         self.router:APIRouter = APIRouter()
         self.router.add_api_route("/discover-prompt/", self.findPrompt, methods = ["POST"])  
-        self.model = InferenceHardPrompt()
+        self.model = InferenceHardPrompt(config)
     
     async def findPrompt(self, image: UploadFile = File(...)):
         image_content = await image.read()
@@ -76,11 +76,11 @@ class PromptDiscoveryRouter(APIRouter):
 
 #Router for Prompt Optimizer for LLM
 class PrompterRouter(APIRouter):
-    def __init__(self):
+    def __init__(self, lora_weights_path: str):
         super().__init__();
         self.router:APIRouter = APIRouter()
         self.router.add_api_route("/optimize-prompt-llm/", self.optimize_prompt, methods = ["POST"])  
-        self.model = InferenceLLMPrompter()
+        self.model = InferenceLLMPrompter(lora_weights_path=lora_weights_path)
     
     async def optimize_prompt(self, inputData = Body()):
         # Here you would perform your optimization logic

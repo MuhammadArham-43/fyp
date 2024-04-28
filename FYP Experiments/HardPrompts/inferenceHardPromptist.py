@@ -5,10 +5,11 @@ import HardPrompts.open_clip_model as open_clip_model
 from .optim_utils import *
 
 class InferenceHardPrompt:
-    def __init__(self):
-        self.config_path = "/home/evobits/arham/fyp/FYP Experiments/HardPrompts/sample_config.json"
+    def __init__(self, config):
+        self.config_path = config["config_path"]
         self.args = argparse.Namespace()
         self.args.__dict__.update(read_json(self.config_path))
+        self.args.iter = config["num_iterations"]
         print(self.args)
         self.args.print_new_best = True
         self.device = "cuda" if torch.cuda.is_available() else "cpu"

@@ -11,3 +11,5 @@ sentence-transformers
 open-clip-torch
 python-multipart
 accelerate
+peft
+pyyaml

@@ -1,0 +1,9 @@
+promptist:
+  num_inference_steps: 20
+
+hard_prompts:
+  num_iterations: 500
+  config_path: "/home/evobits/arham/test_fyp/fyp/FYP Experiments/HardPrompts/sample_config.json"
+
+llm_prompter:
+  weights_path: "/home/evobits/arham/fyp/FYP Experiments/results01/checkpoint-500"
