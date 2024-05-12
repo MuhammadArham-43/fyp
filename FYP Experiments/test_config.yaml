@@ -1,0 +1,10 @@
+promptist:
+  num_inference_steps: 2
+  sd_model: ""
+
+hard_prompts:
+  num_iterations: 5
+  config_path: "/Users/muhammadarham/Drive/GITHUB_FYP/FYP Experiments/HardPrompts/sample_config.json"
+
+llm_prompter:
+  weights_path: "arhamm40182/LLMPrompter"

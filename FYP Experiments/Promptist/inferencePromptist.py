@@ -4,7 +4,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class Promptist:
     def __init__(self):
-        self.device = "cuda"
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.prompter_model, self.prompter_tokenizer = self.load_prompter()
 
     

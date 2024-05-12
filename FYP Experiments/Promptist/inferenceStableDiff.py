@@ -7,8 +7,8 @@ import time
 
 class StableDiffusion:
     def __init__(self, config):
-        self.model_id = "Lykon/dreamshaper-xl-1-0"
-        self.device = "cuda"
+        self.model_id = config.sd_model if config.sd_model else "Lykon/dreamshaper-xl-1-0"
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.pipe = AutoPipelineForText2Image.from_pretrained(self.model_id, torch_dtype=torch.float32)
         self.pipe = self.pipe.to(self.device)
         self.num_infer_steps = config["num_inference_steps"]

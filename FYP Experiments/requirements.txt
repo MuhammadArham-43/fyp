@@ -13,3 +13,4 @@ python-multipart
 accelerate
 peft
 pyyaml
+pytest
